@@ -30,7 +30,7 @@ export default function HeroTitle() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
             className="block text-primary whitespace-nowrap"
           >
             {rotatingWords[index]}
