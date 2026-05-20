@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, UtensilsCrossed, Plus, Settings, LayoutGrid, ArrowLeft, Store } from "lucide-react";
 
 const navItems = [
+  { label: "Add Dish", href: "/admin/add", icon: Plus },
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
   { label: "Dishes", href: "/admin/dishes", icon: UtensilsCrossed },
-  { label: "Add Dish", href: "/admin/add", icon: Plus },
   { label: "Restaurants", href: "/admin/restaurants", icon: Store },
   { label: "Settings", href: "/admin/settings", icon: Settings, disabled: true },
 ];
@@ -26,7 +26,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div>
               <p className="font-bold text-text-main text-sm leading-none">Tawleh</p>
-              <p className="text-text-muted text-xs mt-0.5">Restaurant Portal</p>
+              <p className="text-text-muted text-xs mt-0.5">Admin Portal</p>
             </div>
           </div>
         </div>
@@ -70,10 +70,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
             <LayoutGrid size={13} className="text-white" />
           </div>
-          <span className="font-bold text-sm text-text-main">Restaurant Portal</span>
+          <span className="font-bold text-sm text-text-main">Admin Portal</span>
         </div>
+        {/* Nav icons — Add Dish FAB is separate, show remaining icons here */}
         <div className="flex gap-1">
-          {navItems.filter(n => !n.disabled).map(({ href, icon: Icon, exact }) => {
+          {navItems.filter(n => !n.disabled && n.href !== "/admin/add").map(({ href, icon: Icon, exact }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (
               <Link
@@ -88,8 +89,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
+      {/* Mobile FAB — Add Dish in bottom-right corner */}
+      <div className="md:hidden">
+        <Link
+          href="/admin/add"
+          className={`fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full shadow-card flex items-center justify-center transition-all ${
+            pathname.startsWith("/admin/add")
+              ? "bg-primary-dark text-white"
+              : "bg-primary text-white hover:bg-primary-dark"
+          }`}
+        >
+          <Plus size={24} />
+        </Link>
+      </div>
+
       {/* Main content */}
-      <main className="flex-1 md:pt-0 pt-14 overflow-auto">
+      <main className="flex-1 md:pt-0 pt-14 overflow-auto min-w-0">
         {children}
       </main>
     </div>

@@ -67,10 +67,16 @@ export default function TrendingCarousel({ onDishClick }: TrendingCarouselProps)
     <section className="w-full mt-10">
       {/* Section header */}
       <div className="flex items-center justify-between px-4 mb-4 max-w-6xl mx-auto">
-        <h2 className="font-bold text-lg text-text-main">Trending on Tawleh</h2>
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-pulse-dot absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-success" />
+          </span>
+          <h2 className="font-bold text-base sm:text-lg text-text-main">What Doha is eating right now</h2>
+        </div>
         <button
           onClick={handleShuffle}
-          className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-dark px-3 py-1.5 rounded-xl border border-primary/20 hover:bg-accent-blush transition-all"
+          className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary hover:text-primary-dark px-3 py-1.5 rounded-xl border border-primary/20 hover:bg-accent-blush transition-all"
         >
           <Shuffle size={13} />
           Shuffle

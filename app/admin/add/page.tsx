@@ -161,13 +161,13 @@ export default function AddDishPage() {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-text-main">Add New Dish</h1>
-        <p className="text-text-muted text-sm mt-1">Structured tagging powers the AI recommendation engine</p>
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
+      <div className="mb-5 sm:mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-text-main">Add New Dish</h1>
+        <p className="text-text-muted text-xs sm:text-sm mt-1">Structured tagging powers the AI recommendation engine</p>
       </div>
 
-      <div className="flex gap-6 items-start">
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* ─── Form ─────────────────────────────────────────────── */}
         <div className="flex-1 space-y-4 min-w-0">
 

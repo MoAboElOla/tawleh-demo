@@ -88,15 +88,35 @@ export default function RestaurantsPage() {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-text-main">Restaurant Profiles</h1>
-        <p className="text-text-muted text-sm mt-1">{restaurants.length} restaurants in the network</p>
+    <div className="p-4 sm:p-6 max-w-6xl mx-auto">
+      <div className="mb-5 sm:mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-text-main">Restaurant Profiles</h1>
+        <p className="text-text-muted text-xs sm:text-sm mt-1">{restaurants.length} restaurants in the network</p>
       </div>
 
-      <div className="flex gap-5 items-start">
-        {/* ─── Restaurant list ───────────────────────────────────── */}
-        <div className="w-52 shrink-0 bg-white rounded-2xl border border-border-soft overflow-hidden shadow-soft">
+      {/* Mobile: horizontal restaurant strip */}
+      <div className="md:hidden mb-4 -mx-4 px-4">
+        <p className="text-xs font-bold text-text-muted uppercase tracking-widest mb-2">Restaurants</p>
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          {restaurants.map(({ name, dishes: rd }) => (
+            <button key={name} onClick={() => { setSelectedName(name); setSaved(false); }}
+              className={`shrink-0 text-left px-3 py-2 rounded-xl border transition-colors min-w-[140px] ${
+                selectedName === name
+                  ? "bg-accent-blush border-primary"
+                  : "bg-white border-border-soft hover:bg-bg-light"
+              }`}>
+              <p className={`text-xs font-semibold leading-tight ${selectedName === name ? "text-primary" : "text-text-main"} line-clamp-1`}>
+                {name}
+              </p>
+              <p className="text-[10px] text-text-muted mt-0.5">{rd.length} dishes</p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-5 items-start">
+        {/* Desktop sidebar */}
+        <div className="hidden md:block w-52 shrink-0 bg-white rounded-2xl border border-border-soft overflow-hidden shadow-soft">
           <div className="p-3 border-b border-border-soft">
             <p className="text-xs font-bold text-text-muted uppercase tracking-widest">Restaurants</p>
           </div>
@@ -116,27 +136,29 @@ export default function RestaurantsPage() {
         </div>
 
         {/* ─── Profile editor ────────────────────────────────────── */}
-        <div className="flex-1 space-y-4">
+        <div className="flex-1 w-full min-w-0 space-y-4">
 
           {/* Header card */}
-          <div className="bg-white rounded-2xl border border-border-soft p-5">
-            <div className="flex items-start gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shrink-0">
-                <Store size={24} className="text-white" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-text-main">{profile.name}</h2>
-                <p className="text-text-muted text-sm">{profile.cuisine} · {profile.branch}</p>
-                <div className="flex items-center gap-3 mt-2">
-                  <span className="flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">
-                    <Star size={10} fill="currentColor" /> {(3.8 + (selectedName.charCodeAt(0) % 10) * 0.12).toFixed(1)}
-                  </span>
-                  <span className="text-xs text-text-muted">{currentDishes.length} dishes listed</span>
-                  <span className="text-xs text-text-muted">{profile.priceRange.split(" ")[0]}</span>
+          <div className="bg-white rounded-2xl border border-border-soft p-4 sm:p-5">
+            <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+              <div className="flex items-start gap-3 flex-1 min-w-0">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shrink-0">
+                  <Store size={22} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-lg sm:text-xl font-bold text-text-main leading-tight">{profile.name}</h2>
+                  <p className="text-text-muted text-xs sm:text-sm truncate">{profile.cuisine} · {profile.branch}</p>
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                    <span className="flex items-center gap-1 text-xs text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">
+                      <Star size={10} fill="currentColor" /> {(3.8 + (selectedName.charCodeAt(0) % 10) * 0.12).toFixed(1)}
+                    </span>
+                    <span className="text-xs text-text-muted">{currentDishes.length} dishes</span>
+                    <span className="text-xs text-text-muted">{profile.priceRange.split(" ")[0]}</span>
+                  </div>
                 </div>
               </div>
               <button onClick={handleSave}
-                className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all ${
+                className={`flex items-center justify-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-xl transition-all w-full sm:w-auto shrink-0 ${
                   saved ? "bg-success text-white" : "bg-primary text-white hover:bg-primary-dark"
                 }`}>
                 {saved ? <><CheckCircle size={14} /> Saved</> : "Save Changes"}

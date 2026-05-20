@@ -37,19 +37,20 @@ export default function DishesPage() {
   }, [search, allDishes]);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-text-main">Dishes</h1>
-          <p className="text-text-muted text-sm mt-1">{allDishes.length} dishes in structured menu database</p>
+      <div className="flex items-center justify-between gap-3 mb-5 sm:mb-6">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl font-bold text-text-main">Dishes</h1>
+          <p className="text-text-muted text-xs sm:text-sm mt-1 truncate">{allDishes.length} dishes in database</p>
         </div>
         <Link
           href="/admin/add"
-          className="flex items-center gap-2 bg-primary text-white text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 bg-primary text-white text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl hover:bg-primary-dark transition-colors shrink-0"
         >
           <Plus size={15} />
-          Add Dish
+          <span className="hidden sm:inline">Add Dish</span>
+          <span className="sm:hidden">Add</span>
         </Link>
       </div>
 

@@ -42,13 +42,13 @@ export default function RecommendationCard({ result, index, onShowSimilar }: Pro
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.07 }}
-      className="bg-white rounded-3xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col"
+      className="group bg-white rounded-3xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col h-full"
     >
       {/* Image */}
-      <div className="relative">
-        <DishImage category={dish.category} className="w-full h-44 rounded-t-3xl" />
+      <div className="relative overflow-hidden">
+        <DishImage category={dish.category} className="w-full h-40 sm:h-44 rounded-t-3xl group-hover:scale-105 transition-transform duration-500" />
         <span
-          className={`absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full ${matchColor}`}
+          className={`absolute top-3 right-3 text-xs font-bold px-3 py-1 rounded-full ${matchColor} shadow-soft group-hover:scale-110 transition-transform duration-300`}
         >
           {matchPercent}% match
         </span>
