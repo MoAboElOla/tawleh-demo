@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Send, Mic } from "lucide-react";
+import { useRef } from "react";
+import { Send } from "lucide-react";
 
 interface SearchInputProps {
   onSubmit: (query: string) => void;

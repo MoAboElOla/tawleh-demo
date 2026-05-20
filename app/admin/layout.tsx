@@ -73,7 +73,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <span className="font-bold text-sm text-text-main">Restaurant Portal</span>
         </div>
         <div className="flex gap-1">
-          {navItems.filter(n => !n.disabled).map(({ label, href, icon: Icon, exact }) => {
+          {navItems.filter(n => !n.disabled).map(({ href, icon: Icon, exact }) => {
             const active = exact ? pathname === href : pathname.startsWith(href);
             return (
               <Link

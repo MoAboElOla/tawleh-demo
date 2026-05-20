@@ -81,7 +81,7 @@ export default function DishesPage() {
               </tr>
             </thead>
             <tbody>
-              {filtered.slice(0, 100).map((dish, i) => (
+              {filtered.slice(0, 100).map((dish) => (
                 <tr
                   key={dish.id}
                   className="border-b border-border-soft last:border-0 hover:bg-bg-light transition-colors"

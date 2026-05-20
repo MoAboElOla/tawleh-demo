@@ -1,4 +1,3 @@
-import Fuse from "fuse.js";
 import dishes from "@/data/dishes.json";
 import type { Dish, RecommendationResult } from "./types";
 
@@ -23,7 +22,7 @@ const typoMap: Record<string, string> = {
 };
 
 function normalizeQuery(raw: string): string {
-  let q = raw.toLowerCase().trim();
+  const q = raw.toLowerCase().trim();
   const words = q.split(/\s+/);
   const corrected = words.map((w) => typoMap[w] ?? w);
   return corrected.join(" ");
