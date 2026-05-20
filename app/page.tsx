@@ -4,7 +4,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LayoutGrid, RefreshCw, Store, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
-import QuickChips from "@/components/consumer/QuickChips";
+import QuickChips, { type Chip } from "@/components/consumer/QuickChips";
 import SearchInput from "@/components/consumer/SearchInput";
 import ThinkingState from "@/components/consumer/ThinkingState";
 import RecommendationCard from "@/components/consumer/RecommendationCard";
@@ -22,15 +22,27 @@ const totalRestaurants = new Set((allDishes as { restaurantName: string }[]).map
 
 export default function Home() {
   const [state, setState] = useState<AppState>("idle");
-  const [query, setQuery] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const [selectedChips, setSelectedChips] = useState<Chip[]>([]);
   const [results, setResults] = useState<RecommendationResult[]>([]);
   const [lastQuery, setLastQuery] = useState("");
   const resultsRef = useRef<HTMLDivElement>(null);
 
+  const toggleChip = (chip: Chip) => {
+    setSelectedChips((prev) =>
+      prev.find((c) => c.label === chip.label)
+        ? prev.filter((c) => c.label !== chip.label)
+        : [...prev, chip]
+    );
+  };
+
+  const removeChip = (label: string) => {
+    setSelectedChips((prev) => prev.filter((c) => c.label !== label));
+  };
+
   const runSearch = useCallback((q: string) => {
     if (!q.trim()) return;
     setLastQuery(q);
-    setQuery(q);
     setState("thinking");
     setResults([]);
 
@@ -96,8 +108,10 @@ export default function Home() {
             className="mt-8"
           >
             <SearchInput
-              value={query}
-              onChange={setQuery}
+              textValue={textValue}
+              onTextChange={setTextValue}
+              selectedChips={selectedChips}
+              onRemoveChip={removeChip}
               onSubmit={runSearch}
               disabled={state === "thinking"}
             />
@@ -130,7 +144,11 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.45 }}
             className="mt-8"
           >
-            <QuickChips onSelect={runSearch} disabled={state === "thinking"} />
+            <QuickChips
+              selectedLabels={selectedChips.map((c) => c.label)}
+              onToggle={toggleChip}
+              disabled={state === "thinking"}
+            />
           </motion.div>
         </section>
 
