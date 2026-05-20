@@ -49,7 +49,7 @@ export default function SearchInput({
     if (focused || textValue) return;
     const interval = setInterval(() => {
       setPhIndex((i) => (i + 1) % pool.length);
-    }, 2600);
+    }, 5000);
     return () => clearInterval(interval);
   }, [focused, textValue, pool.length]);
 
@@ -122,7 +122,7 @@ export default function SearchInput({
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  transition={{ duration: 0.65, ease: "easeInOut" }}
                   className="text-text-muted text-sm sm:text-base whitespace-nowrap absolute"
                 >
                   {pool[phIndex]}
